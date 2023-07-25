@@ -1,11 +1,12 @@
 #include <iostream>
 #include <sqlite3.h>
+#include <filesystem>
+#include <SQLiteCpp/SQLiteCpp.h>
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-	sqlite3* db;
-	sqlite3_open("test.db", &db);
+	SQLite::Database db("test.db");
 
 
 	return 0;

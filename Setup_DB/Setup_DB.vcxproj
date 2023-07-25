@@ -133,7 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Db.cpp" />
     <ClCompile Include="setup_db.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Db.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
