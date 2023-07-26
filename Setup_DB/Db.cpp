@@ -40,3 +40,30 @@ int Db::createDatabase()
 	sqlite3_close(db);
 	return 0;
 }
+
+int Db::createTable()
+{
+	string sql = "Create TABLE users("
+		"USERNAME VARCHAR,"
+		"PASSWORD_HASH VARCHAR);";
+	int exit = 0;
+
+	// Open db
+	exit = sqlite3_open(dbName.c_str(), &db);
+
+	char* messageError;
+	exit = sqlite3_exec(db, sql.c_str(), NULL, 0, &messageError);
+
+	if (exit != SQLITE_OK)
+	{
+		cerr << "Error Create Table " << endl;
+		sqlite3_free(messageError);
+	}
+	else
+	{
+		cout << "Table created successfully" << endl;
+	}
+
+	sqlite3_close(db);
+	return 0;
+}
