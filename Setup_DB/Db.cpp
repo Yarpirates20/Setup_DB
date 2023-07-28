@@ -1,6 +1,9 @@
 #include "Db.h"
 #include <iostream>
+#include <filesystem>
+#include <string>
 using namespace std;
+namespace fs = std::filesystem;
 
 // Sets dbName member variable to input name from user
 void Db::setName()
@@ -9,6 +12,7 @@ void Db::setName()
 	cout << "Enter database name: ";
 	getline(cin, name);
 
+	/*auto path = fs::path("C:\\Users\\rsamo\\test\\");*/
 	dbName = name;
 }
 
@@ -67,3 +71,11 @@ int Db::createTable()
 	sqlite3_close(db);
 	return 0;
 }
+
+//bool Db::dbExists(string pathName)
+//{
+//	auto path = fs::path(pathName);
+//	return fs::exists(path);
+//}
+
+

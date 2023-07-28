@@ -5,6 +5,7 @@ class Db
 {
 private:
 	std::string dbName;
+	//string dbPath = "C:\\Users\\rsamo\\test\\";
 	sqlite3* db;
 	const char* data = "Callback function called";
 	char* zErrMsg = 0;
@@ -16,8 +17,8 @@ public:
 	std::string getName();
 	int createDatabase();
 	int createTable();
-	bool dbExists();
+	bool dbExists(std::string);
 	static int callback(void* data, int argc, char** argv, char** azColName);
-	int tableExists();
+	
 };
 
