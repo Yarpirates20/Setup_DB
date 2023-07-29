@@ -25,10 +25,10 @@ std::string Db::getName()
 // Creates a database w/name dbName
 // If no database exists, creates new one
 // Overwrites existing db with same name
-int Db::createDatabase()
+int Db::createDatabase(string name)
 {
 	// Open database
-	int rc = sqlite3_open(dbName.c_str(), &db);
+	int rc = sqlite3_open(name.c_str(), &db);
 
 	if (rc)
 	{

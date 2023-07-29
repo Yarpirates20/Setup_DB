@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	char overwrite;
 	//string name;
 	//string db_path = dir.append(name);
-	auto path = fs::path{ R"(C:\Users\rsamo\test\)"s};
+	auto path = fs::path{ R"(C:\Users\rsamo\test\)"s };
 	ifstream infile({ R"(C:\Users\rsamo\source\config_files\db.json)"s });
 
 	json data = json::parse(infile);
@@ -31,40 +31,91 @@ int main(int argc, char* argv[])
 
 	while (true)
 	{
+		//cin.ignore();
 		int menuChoice = getMenuInput();
-	
+
 		switch (menuChoice)
 		{
 		case 1:
 			cout << "\u001b[2J";
-			defaultDir = data["DefaultDbPath"];
+			/*defaultDir = data["DefaultDbPath"];*/
 			cout << "Current default directory: " << defaultDir << endl;
 			cout << "\n";
-
-			menuChoice = getMenuInput();
-			
+			/*menuChoice = getMenuInput();*/
 			break;
 
 		case 2:
 			cout << "\u001b[2J";
 
-			
+			cin.ignore();
 			cout << "Choose new directory path \n";
-			cout << R"(C:\Users\Desktop\)"s << endl;
+			cout << R"(Example: C:\Users\Desktop\)"s << endl;
 			cout << "\nEnter path: ";
+
 			getline(cin, newDefaultPath);
 
-			defaultDir = newDefaultPath;
+			if (newDefaultPath == "")
+			{
+				defaultDir = data["DefaultDbPath"];
+			}
+			else
+			{
+				defaultDir = newDefaultPath;
+			}
 
 			cout << "New directory location: " << defaultDir << endl;
 
-			menuChoice = getMenuInput();
+			cout << "\n";
+			//cin.ignore();
+			//menuChoice = getMenuInput();
 			break;
 
 		case 3:
+		{
+			Db db;
+			path = defaultDir;
+			/*cout << path.string() << endl;*/
+
+			cin.ignore();
+			db.setName();
+
+			path.append(db.getName());
+
+			if (fs::exists(path))
+			{
+				cout << "\u001b[2J";
+
+				cout << "Database " << db.getName() << " all ready exists at " << path.string() << endl;
+
+				cout << "\nOverwrite existing database? (WARNING: All previous data will be removed)\n";
+				cout << "Enter choice (Y/N): ";
+				cin >> overwrite;
+
+				if (tolower(overwrite) == 'n')
+				{
+					exit(0);
+				}
+			}
+
+			cout << "\u001b[2J";
+
+			if (
+				(!(fs::exists(path))) ||
+				(fs::exists(path) && tolower(overwrite) == 'y')
+				)
+			{
+				db.createDatabase(path.string());
+			}
+
+			cout << "\n";
 			break;
+		}
+
+
+
 
 		default:
+			cout << "\nExiting program\n\n";
 			exit(0);
 			break;
 		}
@@ -72,7 +123,7 @@ int main(int argc, char* argv[])
 
 	}
 
-	Db db;
+	/*Db db;
 
 	db.setName();
 
@@ -95,7 +146,7 @@ int main(int argc, char* argv[])
 	if ((!(fs::exists(path))) || ((fs::exists(path) && tolower(overwrite) == 'y')))
 	{
 		db.createDatabase();
-	}
+	}*/
 
 	//cout << db.getName() << endl;
 

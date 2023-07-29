@@ -15,7 +15,7 @@ public:
 	Db() = default;
 	void setName();
 	std::string getName();
-	int createDatabase();
+	int createDatabase(std::string);
 	int createTable();
 	bool dbExists(std::string);
 	static int callback(void* data, int argc, char** argv, char** azColName);
