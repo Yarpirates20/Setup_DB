@@ -24,6 +24,8 @@ int main(int argc, char* argv[])
 	json data = json::parse(infile);
 	string defaultDir = data["DefaultDbPath"];
 
+	string newDefaultPath;
+
 	cout << setw(45) << "##### Setup Database #####\n\n";
 
 
@@ -35,7 +37,8 @@ int main(int argc, char* argv[])
 		{
 		case 1:
 			cout << "\u001b[2J";
-			cout << defaultDir << endl;
+			defaultDir = data["DefaultDbPath"];
+			cout << "Current default directory: " << defaultDir << endl;
 			cout << "\n";
 
 			menuChoice = getMenuInput();
@@ -43,12 +46,26 @@ int main(int argc, char* argv[])
 			break;
 
 		case 2:
+			cout << "\u001b[2J";
+
+			
+			cout << "Choose new directory path \n";
+			cout << R"(C:\Users\Desktop\)"s << endl;
+			cout << "\nEnter path: ";
+			getline(cin, newDefaultPath);
+
+			defaultDir = newDefaultPath;
+
+			cout << "New directory location: " << defaultDir << endl;
+
+			menuChoice = getMenuInput();
 			break;
 
 		case 3:
 			break;
 
 		default:
+			exit(0);
 			break;
 		}
 
@@ -91,7 +108,8 @@ int getMenuInput()
 
 	cout << "1. View default database location\n"
 		<< "2. Choose new database directory\n"
-		<< "3. Exit\n\n";
+		<< "3. Setup database\n"
+		<< "4. Exit\n\n";
 
 	cout << "Enter choice (1-3): ";
 	cin >> menuInput;
