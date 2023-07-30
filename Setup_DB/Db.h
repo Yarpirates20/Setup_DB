@@ -9,7 +9,7 @@ private:
 	sqlite3* db;
 	const char* data = "Callback function called";
 	char* zErrMsg = 0;
-	string* sql;
+	//string* sql;
 	
 
 public:

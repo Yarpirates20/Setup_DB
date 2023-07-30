@@ -67,13 +67,13 @@ int Db::createTable(string absDbPath)
 
 	//Create SQL statement
 
-	sql = "CREATE TABLE users ("
+	string sql = "CREATE TABLE users ("
 		"USERNAME VARCHAR,"
 		"PASSWORD_HASH VARCHAR);";
 
 
 	// Execute SQL statement
-	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+	rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
 
 	if (rc != SQLITE_OK)
 	{

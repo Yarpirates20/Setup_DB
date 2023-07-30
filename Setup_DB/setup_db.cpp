@@ -82,6 +82,7 @@ int main(int argc, char* argv[])
 
 			path.append(db.getName());
 
+			// Ask for decision to overwrite if DB exists
 			if (fs::exists(path))
 			{
 				cout << "\u001b[2J";
@@ -100,13 +101,19 @@ int main(int argc, char* argv[])
 
 			cout << "\u001b[2J";
 
-			if (
-				(!(fs::exists(path))) ||
-				(fs::exists(path) && tolower(overwrite) == 'y')
-				)
+			// Conditions for creating database
+			if ((!(fs::exists(path))) || (fs::exists(path) && tolower(overwrite) == 'y'))
 			{
 				db.createDatabase(path.string());
+				
 			}
+
+			system("PAUSE");
+			cout << "\u001b[2J";
+
+			// Create table
+			db.createTable(path.string());
+			
 
 			cout << "\n";
 			break;
@@ -163,7 +170,7 @@ int getMenuInput()
 		<< "3. Setup database\n"
 		<< "4. Exit\n\n";
 
-	cout << "Enter choice (1-3): ";
+	cout << "Enter choice (1-4): ";
 	cin >> menuInput;
 
 	return menuInput;
