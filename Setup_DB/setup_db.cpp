@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 				defaultDir = newDefaultPath;
 			}
 
-			cout << "New directory location: " << defaultDir << endl;
+			cout << "\nNew directory location: " << defaultDir << endl;
 
 			cout << "\n";
 			//cin.ignore();
