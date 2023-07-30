@@ -45,30 +45,58 @@ int Db::createDatabase(string name)
 	return 0;
 }
 
-int Db::createTable()
+int Db::createTable(string absDbPath)
 {
-	string sql = "Create TABLE users("
-		"USERNAME VARCHAR,"
-		"PASSWORD_HASH VARCHAR);";
-	int exit = 0;
+
+	int rc;
 
 	// Open db
-	exit = sqlite3_open(dbName.c_str(), &db);
+	rc = sqlite3_open(absDbPath.c_str(), &db);
 
-	char* messageError;
-	exit = sqlite3_exec(db, sql.c_str(), NULL, 0, &messageError);
-
-	if (exit != SQLITE_OK)
+	if (rc)
 	{
-		cerr << "Error Create Table " << endl;
-		sqlite3_free(messageError);
+		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+		return(0);
 	}
 	else
 	{
-		cout << "Table created successfully" << endl;
+		fprintf(stdout, "Opened database successfully\n");
+	}
+
+	/*char* messageError;*/
+
+	//Create SQL statement
+
+	sql = "CREATE TABLE users ("
+		"USERNAME VARCHAR,"
+		"PASSWORD_HASH VARCHAR);";
+
+
+	// Execute SQL statement
+	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else
+	{
+		fprintf(stdout, "Table created successfully\n");
 	}
 
 	sqlite3_close(db);
+	return 0;
+}
+
+int Db::callback(void* NotUsed, int argc, char** argv, char** azColName)
+{
+	int i;
+	for (i = 0; i < argc; i++)
+	{
+		printf("%s = %s \n", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+	printf("\n");
 	return 0;
 }
 

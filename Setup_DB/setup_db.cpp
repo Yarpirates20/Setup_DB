@@ -72,6 +72,7 @@ int main(int argc, char* argv[])
 
 		case 3:
 		{
+			// Create database
 			Db db;
 			path = defaultDir;
 			/*cout << path.string() << endl;*/

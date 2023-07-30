@@ -9,6 +9,7 @@ private:
 	sqlite3* db;
 	const char* data = "Callback function called";
 	char* zErrMsg = 0;
+	string* sql;
 	
 
 public:
@@ -16,9 +17,9 @@ public:
 	void setName();
 	std::string getName();
 	int createDatabase(std::string);
-	int createTable();
+	int createTable(std::string);
 	bool dbExists(std::string);
-	static int callback(void* data, int argc, char** argv, char** azColName);
+	static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 	
 };
 
